@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ оборотного капитала | 11 мес. 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #333;
+            min-height: 100vh;
+            padding: 10px;
+        }
+        
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #1a2980, #2a3a9c);
+            color: white;
+            padding: 12px 25px;
+            border-bottom: 3px solid #26d0ce;
+            flex-shrink: 0;
+        }
+        
+        .company-name {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 2px;
+        }
+        
+        .presentation-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        
+        .presentation-subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .slides-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            flex: 1;
+            min-height: 0;
+        }
+        
+        .slide {
+            flex: 0 0 100%;
+            padding: 15px 25px;
+            scroll-snap-align: start;
+            overflow-y: auto;
+            height: 100%;
+        }
+        
+        .slide-title {
+            color: #1a2980;
+            font-size: 18px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #26d0ce;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .slide-content {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 11px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .data-table th {
+            background-color: #1a2980;
+            color: white;
+            padding: 8px 6px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .data-table td {
+            padding: 6px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .data-table tr:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .section-header {
+            background-color: #2a3a9c !important;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 25px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+        
+        .slide-indicators {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .indicator {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .indicator.active {
+            background-color: #1a2980;
+            transform: scale(1.2);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .nav-btn {
+            background-color: #1a2980;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: #26d0ce;
+        }
+        
+        .highlight-box {
+            background-color: #f0f8ff;
+            border-left: 3px solid #1a2980;
+            padding: 10px 12px;
+            margin: 8px 0;
+            border-radius: 0 5px 5px 0;
+            font-size: 12px;
+        }
+        
+        .highlight-title {
+            color: #1a2980;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 11px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        th {
+            background-color: #1a2980;
+            color: white;
+            padding: 8px 6px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 6px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .negative {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .positive {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .key-metric {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 8px;
+            margin: 12px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            border-top: 3px solid #1a2980;
+            position: relative;
+        }
+        
+        .metric-value {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 4px 0;
+        }
+        
+        .metric-label {
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .metric-annotation {
+            position: absolute;
+            top: -5px;
+            right: 6px;
+            background: #1a2980;
+            color: white;
+            font-size: 8px;
+            padding: 1px 5px;
+            border-radius: 6px;
+        }
+        
+        .conclusion-box {
+            background: linear-gradient(to right, #1a2980, #2a3a9c);
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 12px;
+            font-size: 12px;
+        }
+        
+        .investment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 6px;
+            margin: 8px 0;
+        }
+        
+        .investment-item {
+            background: white;
+            padding: 8px;
+            border-radius: 3px;
+            border-left: 2px solid #1a2980;
+            font-size: 11px;
+        }
+        
+        .risk-item, .positive-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 5px;
+            margin: 4px 0;
+            font-size: 12px;
+        }
+        
+        .scroll-note {
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        
+        .diagram-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 15px 0;
+            gap: 20px;
+        }
+        
+        .diagram {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .diagram-title {
+            text-align: center;
+            font-weight: bold;
+            color: #1a2980;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .diagram-columns {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 250px;
+            position: relative;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .column {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .column-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a2980;
+            margin-bottom: 10px;
+        }
+        
+        .column-label {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .column-date {
+            position: absolute;
+            bottom: -25px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .column-1-2025 .column-date {
+            left: 0;
+        }
+        
+        .column-12-2025 .column-date {
+            right: 0;
+        }
+        
+        .stacked-bar {
+            width: 80%;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .stacked-bar:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        
+        .bar-segment {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bar-label {
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            font-size: 9px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90%;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+            font-size: 11px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 12px;
+            }
+            
+            .presentation-title {
+                font-size: 18px;
+            }
+            
+            .investment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .diagram-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .diagram {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="header">
+            <div class="company-name">ПОЛНЫЙ ФИНАНСОВЫЙ АНАЛИЗ</div>
+            <h1 class="presentation-title">Анализ оборотного капитала за 11 месяцев 2025</h1>
+            <div class="presentation-subtitle">
+                <i class="fas fa-database"></i> Исходные данные и аналитические выводы
+            </div>
+        </div>
+        
+        <div class="slides-container" id="slides-container">
+            <!-- Слайд 0: Исходные данные -->
+            <div class="slide">
+                <h2 class="slide-title"><i class="fas fa-table"></i> Исходные данные</h2>
+                <div class="slide-content">
+                    <p style="margin-bottom: 6px; font-size: 12px;">Полная таблица данных за 11 месяцев 2025 года (тыс. руб., тонны)</p>
+                    
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Показатель</th>
+                                <th>01.01.2025</th>
+                                <th>01.12.2025</th>
+                                <th>изм абс</th>
+                                <th>изм, %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="section-header"><td colspan="5">Запасы в натуральных единицах (тонны)</td></tr>
+                            <tr><td>Запасы, тонн</td><td>1 329,94</td><td>957,56</td><td class="negative">-372,38</td><td class="negative">-28%</td></tr>
+                            <tr><td>Профиль алюминиевый</td><td>671,35</td><td>661,08</td><td class="negative">-10,27</td><td class="negative">-2%</td></tr>
+                            <tr><td>Слитки алюминиевые</td><td>446,14</td><td>152,14</td><td class="negative">-294,01</td><td class="negative">-66%</td></tr>
+                            <tr><td>Первичный алюминий</td><td>67,43</td><td>40,28</td><td class="negative">-27,15</td><td class="negative">-40%</td></tr>
+                            <tr><td>Лома</td><td>145,02</td><td>104,06</td><td class="negative">-40,96</td><td class="negative">-28%</td></tr>
+                            
+                            <tr class="section-header"><td colspan="5">Оборотные активы (тыс. руб.)</td></tr>
+                            <tr><td>Запасы</td><td>456 955,35</td><td>286 867,72</td><td class="negative">-170 087,64</td><td class="negative">-37%</td></tr>
+                            <tr><td>Профиль алюминиевый</td><td>249 687,53</td><td>211 016,86</td><td class="negative">-38 670,66</td><td class="negative">-15%</td></tr>
+                            <tr><td>Слитки алюминиевые</td><td>127 151,04</td><td>36 512,88</td><td class="negative">-90 638,16</td><td class="negative">-71%</td></tr>
+                            <tr><td>Первичный алюминий</td><td>18 071,51</td><td>9 545,89</td><td class="negative">-8 525,62</td><td class="negative">-47%</td></tr>
+                            <tr><td>Лома алюминя</td><td>62 045,28</td><td>29 792,09</td><td class="negative">-32 253,19</td><td class="negative">-52%</td></tr>
+                            <tr><td>Дебиторская задолженность</td><td>168 024,63</td><td>213 069,96</td><td class="positive">45 045,33</td><td class="positive">27%</td></tr>
+                            <tr><td>Авансы выданные РУСАЛ</td><td>79 779,54</td><td>14 154,10</td><td class="negative">-65 625,44</td><td class="negative">-82%</td></tr>
+                            <tr><td>Задолженность клиентов ПРОФИЛЬ</td><td>82 176,94</td><td>197 014,39</td><td class="positive">114 837,46</td><td class="positive">140%</td></tr>
+                            <tr><td>Задолженность клиентов СЛИТКИ</td><td>4 009,01</td><td>1 387,06</td><td class="negative">-2 621,96</td><td class="negative">-65%</td></tr>
+                            <tr><td>Задолженность клиентов Переработка слитков</td><td>2 059,14</td><td>514,41</td><td class="negative">-1 544,73</td><td class="negative">-75%</td></tr>
+                            <tr><td>Денежные средства</td><td>45 387,70</td><td>20 414,60</td><td class="negative">-24 973,10</td><td class="negative">-55%</td></tr>
+                            <tr style="font-weight: bold; background-color: #e8f4fd;"><td>АКТИВЫ, тыс.руб.</td><td>670 367,68</td><td>520 352,28</td><td class="negative">-150 015,40</td><td class="negative">-22%</td></tr>
+                            
+                            <tr class="section-header"><td colspan="5">Обязательства (тыс. руб.)</td></tr>
+                            <tr><td>Кредиторская задолженность</td><td>261 556,77</td><td>117 413,57</td><td class="negative">-144 143,20</td><td class="negative">-55%</td></tr>
+                            <tr><td>Авансы полученные ПРОФИЛЬ</td><td>209 806,17</td><td>50 193,50</td><td class="negative">-159 612,67</td><td class="negative">-76%</td></tr>
+                            <tr><td>Задолженность перед поставщиками ЛОМА</td><td>51 750,59</td><td>67 220,07</td><td class="positive">15 469,48</td><td class="positive">30%</td></tr>
+                            <tr><td>Оборотные кредиты</td><td>400 000,00</td><td>600 000,00</td><td class="positive">200 000,00</td><td class="positive">50%</td></tr>
+                            <tr><td>Сбербанк</td><td>400 000,00</td><td>200 000,00</td><td class="negative">-200 000,00</td><td class="negative">-50%</td></tr>
+                            <tr><td>МСП</td><td>-</td><td>400 000,00</td><td class="positive">400 000,00</td><td>-</td></tr>
+                            <tr style="font-weight: bold; background-color: #e8f4fd;"><td>ПАССИВЫ, тыс.руб.</td><td>661 556,77</td><td>717 413,57</td><td class="positive">55 856,80</td><td class="positive">8%</td></tr>
+                            
+                            <tr class="section-header"><td colspan="5">Финансовый результат</td></tr>
+                            <tr style="font-weight: bold; background-color: #fff8e1;"><td>Собственный капитал (Активы-Пассивы)</td><td>8 810,91</td><td>-197 061,29</td><td class="negative">-205 872,20</td><td>-</td></tr>
+                            <tr><td>Чистая прибыль за 11 месяцев</td><td colspan="3">339 206,57</td><td>-</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="scroll-note">Прокрутите вниз для просмотра полной таблицы</div>
+                </div>
+            </div>
+            
+            <!-- Слайд 1: Введение -->
+            <div class="slide">
+                <h2 class="slide-title"><i class="fas fa-home"></i> Введение и цель анализа</h2>
+                <div class="slide-content">
+                    <p>Анализ динамики и структуры оборотного капитала за период <strong>01.01.2025 - 01.12.2025</strong>.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i class="fas fa-bullseye"></i> Цели анализа:</div>
+                        <ul style="padding-left: 16px; margin-top: 4px;">
+                            <li>Оценка изменения структуры активов и обязательств</li>
+                            <li>Анализ ликвидности и финансовой устойчивости</li>
+                            <li>Выявление ключевых тенденций и рисков</li>
+                            <li>Формулировка рекомендаций для руководства</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="key-metric">
+                        <div class="metric-card">
+                            <div class="metric-annotation">01.01 → 01.12</div>
+                            <div class="metric-label">Период анализа</div>
+                            <div class="metric-value">11 месяцев</div>
+                            <div class="metric-label">2025 год</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-annotation">670 → 520 млн</div>
+                            <div class="metric-label">Изменение активов</div>
+                            <div class="metric-value negative">-22%</div>
+                            <div class="metric-label">670 → 520 млн руб.</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-annotation">8,8 → -197 млн</div>
+                            <div class="metric-label">Собственный капитал</div>
+                            <div class="metric-value negative">-205,9 млн</div>
+                            <div class="metric-label">8,8 → -197 млн руб.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Слайд 2: Запасы сырья -->
+            <div class="slide">
+                <h2 class="slide-title"><i class="fas fa-boxes"></i> Динамика запасов сырья</h2>
+                <div class="slide-content">
+                    <p>За 11 месяцев 2025 года общие запасы сырья сократились на <strong class="negative">28%</strong> (с 1 330 до 958 тонн).</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Наименование запасов</th>
+                                <th>01.01.2025 (тонн)</th>
+                                <th>01.12.2025 (тонн)</th>
+                                <th>Изменение, %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Запасы, всего</td><td>1 329,94</td><td>957,56</td><td class="negative">-28%</td></tr>
+                            <tr><td>Профиль алюминиевый</td><td>671,35</td><td>661,08</td><td class="negative">-2%</td></tr>
+                            <tr><td>Слитки алюминиевые</td><td>446,14</td><td>152,14</td><td class="negative">-66%</td></tr>
+                            <tr><td>Первичный алюминий</td><td>67,43</td><td>40,28</td><td class="negative">-40%</td></tr>
+                            <tr><td>Лома</td><td>145,02</td><td>104,06</td><td class="negative">-28%</td></tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="key-metric">
+                        <div class="metric-card">
+                            <div class="metric-annotation">-372,38 т</div>
+                            <div class="metric-label">Общее снижение запасов</div>
+                            <div class="metric-value negative">-28%</div>
+                            <div class="metric-label">1 330 → 958 тонн</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-annotation">-294 т</div>
+                            <div class="metric-label">Слитки алюминиевые</div>
+                            <div class="metric-value negative">-66%</div>
+                            <div class="metric-label">446 → 152 тонн</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-annotation">-10,27 т</div>
+                            <div class="metric-label">Профиль алюминиевый</div>
+                            <div class="metric-value negative">-2%</div>
+                            <div class="metric-label">671 → 661 тонн</div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i class="fas fa-exclamation-triangle"></i> Ключевые выводы по запасам:</div>
+                        <ul style="padding-left: 16px; margin-top: 4px;">
+                            <li><strong>Снижение слитков (-66%) и профиля (-2%)</strong> — сокращение запасов из-за дефицита источников формирования оборотного капитала (резкое сокращение авансов от клиентов)</li>
+                            <li><strong>Общее снижение запасов на 28%</strong> оказывает давление на финансовую ликвидность</li>
+                            <li><strong>Нет политики оптимизации складских запасов</strong> — это отражение нехватки источников оборотного капитала</li>
+                            <li>Критическое сокращение слитков (-66%) создает риск срыва производственных процессов</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Слайд 3: Структура оборотного капитала (диаграмма) -->
+            <div class="slide">
+                <h2 class="slide-title"><i class="fas fa-chart-pie"></i> Структура оборотного капитала</h2>
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <div class="diagram">
+                            <div class="diagram-title">СТРУКТУРА ОБОРОТНОГО КАПИТАЛА</div>
+                            <div class="diagram-columns">
+                                <div class="column column-1-2025">
+                                    <div class="column-value">670 368</div>
+                                    <div class="stacked-bar" style="height: 300px;">
+                                        <div class="bar-segment" style="height: 37%; background-color: #1a2980;">
+                                            <div class="bar-label">Профиль</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 19%; background-color: #2a3a9c;">
+                                            <div class="bar-label">Слитки</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 3%; background-color: #3a4ab8;">
+                                            <div class="bar-label">Первичный</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 9%; background-color: #4a5ad4;">
+                                            <div class="bar-label">Лома</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 12%; background-color: #5a6af0;">
+                                            <div class="bar-label">Авансы РУСАЛ</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 20%; background-color: #6a7aff;">
+                                            <div class="bar-label">Дебиторка</div>
+                                        </div>
+                                    </div>
+                                    <div class="column-date">01.01.2025</div>
+                                </div>
+                                
+                                <div class="column column-12-2025">
+                                    <div class="column-value">520 352</div>
+                                    <div class="stacked-bar" style="height: 234px;">
+                                        <div class="bar-segment" style="height: 40%; background-color: #1a2980;">
+                                            <div class="bar-label">Профиль</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 7%; background-color: #2a3a9c;">
+                                            <div class="bar-label">Слитки</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 2%; background-color: #3a4ab8;">
+                                            <div class="bar-label">Первичный</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 6%; background-color: #4a5ad4;">
+                                            <div class="bar-label">Лома</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 3%; background-color: #5a6af0;">
+                                            <div class="bar-label">Авансы РУСАЛ</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 42%; background-color: #6a7aff;">
+                                            <div class="bar-label">Дебиторка</div>
+                                        </div>
+                                    </div>
+                                    <div class="column-date">01.12.2025</div>
+                                </div>
+                            </div>
+                            
+                            <div class="legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #1a2980;"></div>
+                                    <span>Профиль алюминиевый</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #2a3a9c;"></div>
+                                    <span>Слитки алюминиевые</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #3a4ab8;"></div>
+                                    <span>Первичный алюминий</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #4a5ad4;"></div>
+                                    <span>Лома алюминя</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #5a6af0;"></div>
+                                    <span>Авансы выданные РУСАЛ</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #6a7aff;"></div>
+                                    <span>Задолженность клиентов ПРОФИЛЬ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i class="fas fa-chart-line"></i> Ключевые изменения структуры:</div>
+                        <ul style="padding-left: 16px; margin-top: 4px;">
+                            <li><strong>Резкий рост доли дебиторской задолженности</strong> с 20% до 42% от общей структуры активов</li>
+                            <li><strong>Сокращение доли запасов</strong> - профиль с 37% до 40%, слитки с 19% до 7%</li>
+                            <li><strong>Значительное сокращение авансов РУСАЛ</strong> - с 12% до 3% структуры</li>
+                            <li><strong>Изменение структуры в пользу менее ликвидных активов</strong> - рост дебиторки при сокращении запасов и авансов</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Слайд 4: Структура источников капитала (диаграмма) -->
+            <div class="slide">
+                <h2 class="slide-title"><i class="fas fa-chart-bar"></i> Структура источников капитала</h2>
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <div class="diagram">
+                            <div class="diagram-title">СТРУКТУРА ИСТОЧНИКОВ КАПИТАЛА</div>
+                            <div class="diagram-columns">
+                                <div class="column column-1-2025">
+                                    <div class="column-value">661 557</div>
+                                    <div class="stacked-bar" style="height: 280px;">
+                                        <div class="bar-segment" style="height: 60%; background-color: #e74c3c;">
+                                            <div class="bar-label">Оборотные кредиты</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 32%; background-color: #f39c12;">
+                                            <div class="bar-label">Авансы ПРОФИЛЬ</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 8%; background-color: #f1c40f;">
+                                            <div class="bar-label">Задолженность ЛОМА</div>
+                                        </div>
+                                    </div>
+                                    <div class="column-date">01.01.2025</div>
+                                </div>
+                                
+                                <div class="column column-12-2025">
+                                    <div class="column-value">717 414</div>
+                                    <div class="stacked-bar" style="height: 304px;">
+                                        <div class="bar-segment" style="height: 84%; background-color: #e74c3c;">
+                                            <div class="bar-label">Оборотные кредиты</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 7%; background-color: #f39c12;">
+                                            <div class="bar-label">Авансы ПРОФИЛЬ</div>
+                                        </div>
+                                        <div class="bar-segment" style="height: 9%; background-color: #f1c40f;">
+                                            <div class="bar-label">Задолженность ЛОМА</div>
+                                        </div>
+                                    </div>
+                                    <div class="column-date">01.12.2025</div>
+                                </div>
+                            </div>
+                            
+                            <div class="legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #e74c3c;"></div>
+                                    <span>Оборотные кредиты</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #f39c12;"></div>
+                                    <span>Авансы полученные ПРОФИЛЬ</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #f1c40f;"></div>
+                                    <span>Задолженность перед поставщиками ЛОМА</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-metric">
+                        <div class="metric-card">
+                            <div class="metric-annotation">-144 млн</div>
+                            <div class="metric-label">Кредиторская задолженность</div>
+                            <div class="metric-value positive">-55%</div>
+                            <div class="metric-label">262 → 117 млн руб.</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-annotation">+200 млн</div>
+                            <div class="metric-label">Оборотные кредиты</div>
+                            <div class="metric-value negative">+50%</div>
+                            <div class="metric-label">400 → 600 млн руб.</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-annotation">-160 млн</div>
+                            <div class="metric-label">Авансы от покупателей</div>
+                            <div class="metric-value negative">-76%</div>
+                            <div class="metric-label">210 → 50 млн руб.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i class="fas fa-exclamation-triangle"></i> Структурные изменения источников:</div>
+                        <ul style="padding-left: 16px; margin-top: 4px;">
+                            <li><strong>Резкий рост зависимости от заемных средств</strong> - доля кредитов увеличилась с 60% до 84%</li>
+                            <li><strong>Критическое сокращение авансов от покупателей</strong> - с 32% до 7% структуры финансирования</li>
+                            <li><strong>Изменение структуры финансирования</strong> в сторону более дорогих источников (кредиты вместо авансов)</li>
+                            <li><strong>Потеря устойчивых бесплатных источников финансирования</strong> - авансы от клиентов</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="conclusion-box">
+                        <div class="highlight-title" style="color: white;"><i class="fas fa-exclamation-circle"></i> КРИТИЧЕСКИЙ ПОКАЗАТЕЛЬ</div>
+                        <div style="font-size: 16px; font-weight: bold; text-align: center; margin: 6px 0;">
+                            СОБСТВЕННЫЙ КАПИТАЛ: <span class="negative">-197 млн руб.</span>
+                        </div>
+                        <p style="text-align: center; font-size: 11px;">На начало года: <strong>+8,8 млн руб.</strong> → На 01.12.2025: <strong class="negative">-197 млн руб.</strong> (снижение на 205,9 млн руб.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Слайд 5: Прибыль и инвестиции -->
+            <div class="slide">
+                <h2 class="slide-title"><i class="fas fa-money-bill-wave"></i> Чистая прибыль и инвестиции</h2>
+                <div class="slide-content">
+                    <div class="key-metric">
+                        <div class="metric-card" style="border-top-color: #27ae60;">
+                            <div class="metric-annotation">11 месяцев</div>
+                            <div class="metric-label">Чистая прибыль за 11 мес.</div>
+                            <div class="metric-value positive">339,2 млн руб.</div>
+                            <div class="metric-label">Основной источник капитала</div>
+                        </div>
+                        
+                        <div class="metric-card" style="border-top-color: #e74c3c;">
+                            <div class="metric-annotation">Превышение на 79,8 млн</div>
+                            <div class="metric-label">Использовано средств</div>
+                            <div class="metric-value">419,0 млн руб.</div>
+                            <div class="metric-label">На 79,8 млн руб. > прибыли</div>
+                        </div>
+                    </div>
+                    
+                    <p>Превышение расходов над прибылью финансировалось за счет заемных средств, что увеличило долговую нагрузку.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i class="fas fa-trophy"></i> Топ-5 проектов по расходам из прибыли:</div>
+                        <div class="investment-grid">
+                            <div class="investment-item">
+                                <strong>1. НДС (камеральная проверка)</strong><br>
+                                <span class="negative">86,0 млн руб.</span>
+                            </div>
+                            <div class="investment-item">
+                                <strong>2. Учредитель</strong><br>
+                                <span class="negative">62,2 млн руб.</span>
+                            </div>
+                            <div class="investment-item">
+                                <strong>3. Реконструкция РИАК 2024-2026</strong><br>
+                                <span class="negative">64,9 млн руб.</span>
+                            </div>
+                            <div class="investment-item">
+                                <strong>4. Инвест кредит Риал</strong><br>
+                                <span class="negative">35,4 млн руб.</span>
+                            </div>
+                            <div class="investment-item">
+                                <strong>5. Лизинг</strong><br>
+                                <span class="negative">22,8 млн руб.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box" style="margin-top: 8px;">
+                        <div class="highlight-title"><i class="fas fa-lightbulb"></i> Выводы по инвестиционной деятельности:</div>
+                        <ul style="padding-left: 16px; margin-top: 4px;">
+                            <li>Компания активно инвестирует в развитие и модернизацию</li>
+                            <li>Инвестиции превышают чистую прибыль на <strong>79,8 млн руб.</strong>, создавая дефицит финансирования</li>
+                            <li>Отток денежных средств на инвестиции объясняет снижение ликвидности</li>
+                            <li><strong>Необходим пересмотр инвестиционных затрат по проектам</strong></li>
+                            <li><strong>Высокий уровень неоперационных инвестиционных расходов, который превышает размер чистой прибыли</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Слайд 6: Выводы и рекомендации -->
+            <div class="slide">
+                <h2 class="slide-title"><i class="fas fa-clipboard-check"></i> Выводы и рекомендации</h2>
+                <div class="slide-content">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-bottom: 12px;">
+                        <div>
+                            <h3 style="color: #e74c3c; margin-bottom: 6px; border-bottom: 2px solid #e74c3c; padding-bottom: 3px; font-size: 14px;"><i class="fas fa-exclamation-triangle"></i> КРИТИЧЕСКИЕ ПРОБЛЕМЫ</h3>
+                            <div class="risk-item"><i class="fas fa-exclamation-circle"></i><div><strong>Отрицательный собственный капитал</strong> (-197 млн руб.) - превышение обязательств над активами</div></div>
+                            <div class="risk-item"><i class="fas fa-exclamation-circle"></i><div><strong>Дефицит источников оборотного капитала</strong> - сокращение авансов от клиентов на 160 млн руб.</div></div>
+                            <div class="risk-item"><i class="fas fa-exclamation-circle"></i><div><strong>Риск срыва производства</strong> - сокращение запасов слитков на 66% из-за нехватки финансирования</div></div>
+                            <div class="risk-item"><i class="fas fa-exclamation-circle"></i><div><strong>Рост финансового цикла</strong> - увеличение дебиторской задолженности при сокращении кредиторской</div></div>
+                        </div>
+                        
+                        <div>
+                            <h3 style="color: #27ae60; margin-bottom: 6px; border-bottom: 2px solid #27ae60; padding-bottom: 3px; font-size: 14px;"><i class="fas fa-thumbs-up"></i> ПОЗИТИВНЫЕ АСПЕКТЫ</h3>
+                            <div class="positive-item"><i class="fas fa-check-circle"></i><div><strong>Сокращение кредиторской задолженности</strong> - на 144 млн руб. (-55%)</div></div>
+                            <div class="positive-item"><i class="fas fa-check-circle"></i><div><strong>Инвестиции в развитие</strong> - активная модернизация и расширение</div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="conclusion-box">
+                        <div class="highlight-title" style="color: white;"><i class="fas fa-bullhorn"></i> ПРИОРИТЕТНЫЕ РЕКОМЕНДАЦИИ</div>
+                        <ol style="padding-left: 18px; margin-top: 6px; font-size: 12px;">
+                            <li><strong>Немедленно восстановить источники оборотного капитала</strong> - пересмотреть политику авансирования с клиентами</li>
+                            <li><strong>Срочно оптимизировать структуру финансирования</strong> - рефинансировать краткосрочные кредиты в долгосрочные</li>
+                            <li><strong>Внедрить жесткий контроль дебиторской задолженности</strong> - ввести KPI по срокам инкассации для менеджеров</li>
+                            <li><strong>Провести аудит инвестиционных программ</strong> - заморозить проекты с низкой эффективностью для восстановления ликвидности</li>
+                            <li><strong>Разработать план экстренного восстановления запасов</strong> - обеспечить бесперебойность производства</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 12px; padding: 10px; background-color: #f8f9fa; border-radius: 5px; border: 1px solid #1a2980; font-size: 12px;">
+                        <h3 style="color: #1a2980; margin-bottom: 5px;">ЗАКЛЮЧЕНИЕ</h3>
+                        <p style="font-weight: 600;">Компания столкнулась с острым дефицитом оборотного капитала из-за потери ключевых источников финансирования (авансов от клиентов). Это привело к вынужденному сокращению запасов, росту кредитной нагрузки и отрицательному собственному капиталу. <strong>Требуются экстренные меры по восстановлению ликвидности и пересмотру финансовой политики.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="slide-indicators" id="slide-indicators"></div>
+            
+            <div class="date">
+                <i class="far fa-calendar-alt"></i> 15.12.2025 | Для руководства компании
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn" id="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slidesContainer = document.getElementById('slides-container');
+            const slideIndicators = document.getElementById('slide-indicators');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slides = document.querySelectorAll('.slide');
+            
+            // Создание индикаторов слайдов
+            slides.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => goToSlide(index));
+                slideIndicators.appendChild(indicator);
+            });
+            
+            let currentSlide = 0;
+            
+            // Функция перехода к слайду
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                slidesContainer.scrollTo({ 
+                    left: slideIndex * slidesContainer.offsetWidth, 
+                    behavior: 'smooth' 
+                });
+                updateIndicators();
+            }
+            
+            // Обновление индикаторов
+            function updateIndicators() {
+                document.querySelectorAll('.indicator').forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            // Навигация по кнопкам
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    goToSlide(currentSlide + 1);
+                }
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    goToSlide(currentSlide - 1);
+                }
+            });
+            
+            // Определение текущего слайда при прокрутке
+            slidesContainer.addEventListener('scroll', () => {
+                const slideWidth = slidesContainer.offsetWidth;
+                const newSlide = Math.round(slidesContainer.scrollLeft / slideWidth);
+                if (newSlide !== currentSlide) {
+                    currentSlide = newSlide;
+                    updateIndicators();
+                }
+            });
+            
+            // Навигация с клавиатуры
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
